@@ -13,7 +13,7 @@ pub fn build(b: *std.Build) !void {
     const capy = capy_dep.module("capy");
 
     const exe = b.addExecutable(.{
-        .name = "capy-template",
+        .name = "OParadisi",
         .root_source_file = b.path("src/main.zig"),
         .target = target,
         .optimize = optimize,
@@ -28,7 +28,7 @@ pub fn build(b: *std.Build) !void {
     // Building for WebAssembly
     @setEvalBranchQuota(5000);
     const wasm = b.addExecutable(.{
-        .name = "capy-template",
+        .name = "OParadisi",
         .root_source_file = b.path("src/main.zig"),
         .target = b.resolveTargetQuery(
             comptime std.Target.Query.parse(.{ .arch_os_abi = "wasm32-freestanding" }) catch unreachable,
