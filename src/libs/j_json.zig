@@ -1,21 +1,25 @@
 const std = @import("std");
 
 const window_size = struct {
-    width: usize,
-    height: usize,
+    width: u32,
+    height: u32,
 };
 
-const json_content = struct {
+pub const json_content = struct {
     window_size: window_size,
 };
 
 pub fn init() !void {
+    // main allocation
     const allocator = std.heap.page_allocator;
+
+    // u8 buffer for the path
     var exepath_buffer: [1024]u8 = undefined;
     const exepath = try std.fs.selfExePath(&exepath_buffer);
 
     const exe_dir = std.fs.path.dirname(exepath) orelse return error.UnexpectedNull;
 
+    // marge the path
     const config_path = try std.fs.path.join(allocator, &[_][]const u8{ exe_dir, "config" });
     defer allocator.free(config_path);
 
@@ -32,15 +36,20 @@ pub fn init() !void {
 }
 
 pub fn init_json() !void {
+    // main allocation
     const allocator = std.heap.page_allocator;
+
+    // u8 buffer for the path
     var exepath_buffer: [1024]u8 = undefined;
     const exepath = try std.fs.selfExePath(&exepath_buffer);
 
     const exe_dir = std.fs.path.dirname(exepath) orelse return error.UnexpectedNull;
 
+    // marge the path
     const config_path = try std.fs.path.join(allocator, &[_][]const u8{ exe_dir, "config" });
     defer allocator.free(config_path);
 
+    // marge the path
     const json_file_path = try std.fs.path.join(allocator, &[_][]const u8{ config_path, "config.json" });
     defer allocator.free(json_file_path);
 
