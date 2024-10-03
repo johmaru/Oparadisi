@@ -1,6 +1,7 @@
 const std = @import("std");
 const capy = @import("capy");
 const j_json = @import("libs/j_json.zig");
+const j_log = @import("libs/log.zig");
 
 // This is required for your app to build to WebAssembly and other particular architectures
 
@@ -10,6 +11,9 @@ pub fn main() !void {
     try j_json.init();
     try j_json.init_json();
     try init_window();
+    try j_log.init();
+
+    try j_log.log("All Initialize!", j_log.LogLevel.Info);
 }
 
 fn init_window() !void {
